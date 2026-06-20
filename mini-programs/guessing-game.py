@@ -23,10 +23,18 @@ def get_valid_difficulty():
                     print("Please choose a correct difficulty!")
             
         except ValueError:
-            print("Please enter correct difficulty!")
+            print("Invalid Input! Please enter correct difficulty!")
 
+def get_valid_guess():
+    
+    while True:
+        try:
+            guess = int(input("What's your guess? "))
+            if 1 <= guess <= 100:
+                return guess
             
-        
+        except ValueError:
+            print("Invalid Input! Please enter a correct value!")
 
 def guessing_game():
 
@@ -52,7 +60,7 @@ def guessing_game():
     print(f"You have {max_attempts} attempts!")
 
     while attempts < max_attempts:
-        guess = int(input("What's your guess? "))
+        guess = get_valid_guess()
         attempts += 1
 
         result = give_hint(guess, secret)
