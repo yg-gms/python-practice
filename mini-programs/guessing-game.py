@@ -1,5 +1,17 @@
 import random
 
+high_score = None
+
+def update_highscore(attempts):
+    global high_score
+
+    if high_score is None or attempts < high_score:
+        high_score = attempts
+        print(f"🏆 NEW HIGH SCORE: {high_score} attempts!")
+
+    else:
+        print(f"Current high score: {high_score} attempts")
+
 def give_hint(guess, secret_number):
 
     if guess < secret_number:
@@ -25,12 +37,12 @@ def get_valid_difficulty():
         except ValueError:
             print("Invalid Input! Please enter correct difficulty!")
 
-def get_valid_guess():
+def get_valid_guess(max_number):
     
     while True:
         try:
             guess = int(input("What's your guess? "))
-            if 1 <= guess <= 100:
+            if 1 <= guess <= max_number:
                 return guess
             
         except ValueError:
@@ -60,7 +72,7 @@ def guessing_game():
     print(f"You have {max_attempts} attempts!")
 
     while attempts < max_attempts:
-        guess = get_valid_guess()
+        guess = get_valid_guess(max_number)
         attempts += 1
 
         result = give_hint(guess, secret)
@@ -68,6 +80,7 @@ def guessing_game():
 
         if guess == secret:
             print("Congrats, you win!")
+            update_highscore(attempts)
             return
 
     print(f"You lose! The number was {secret}")
