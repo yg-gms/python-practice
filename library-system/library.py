@@ -95,47 +95,49 @@ my_library = create_library()
 def main():
 
     while True:
-        print("Welcome to the library! Choose one of the options to continue!")
 
-        print("1. Display Books")
-        print("2. Display Members")
-        print("3. Add Books")
-        print("4. Add Members")
-        print("5. Borrow Book")
+        try:
 
-        while True:
+            print("Welcome to the library! Choose one of the options to continue!")
 
-            try:
+            print("1. Display Books")
+            print("2. Display Members")
+            print("3. Add Books")
+            print("4. Add Members")
+            print("5. Borrow Book")
+
+            while True:
 
                 choice = input()
 
                 if choice == '1':
-                    display_books(my_library)
-                    break
+                        display_books(my_library)
+                        break
 
                 elif choice == '2':
-                    display_members(my_library)
-                    break
+                        display_members(my_library)
+                        break
 
                 elif choice == '3':
-                    add_books(my_library, input("Author: "), input("Title: "), input("ISBN: "))
-                    break
+                        add_books(my_library, input("Author: "), input("Title: "), input("ISBN: "))
+                        break
 
                 elif choice == '4':
-                    add_members(my_library, input("Member ID: "), input("Name: "))
-                    break
+                        add_members(my_library, input("Member ID: "), input("Name: "))
+                        break
 
                 elif choice == '5':
-                    borrow_book(my_library, input("Member ID "), input("ISBN: "))
-                    break
+                        borrow_book(my_library, input("Member ID "), input("ISBN: "))
+                        break
 
                 else:
-                    print("Please enter a valid choice!")
-                    break
+                        print("Please enter a valid choice!")
+                        break
 
-            except (EOFError, KeyboardInterrupt):
-                print("Bye!")
-                break
+
+        except (EOFError, KeyboardInterrupt):
+            print("Bye!")
+            break
 
 if __name__ == "__main__":
     main()
