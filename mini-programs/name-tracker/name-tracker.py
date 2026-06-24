@@ -48,8 +48,6 @@ def add_name(members):
 
 def save_and_quit(members):
 
-    os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
-
     with open(FILE_PATH, 'w') as file:
         file.writelines(members)
 
