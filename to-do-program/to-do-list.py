@@ -1,24 +1,33 @@
 import json
 import os
+import sys
 
 def save_tasks(to_do, filename="todo_list.json"):
     """Save your task list to a file"""
     try:
+
         with open(filename, 'w') as f:
             json.dump(to_do, f, indent=2)
+
         print("💾 Tasks saved successfully!")
+        sys.exit()
+
     except Exception as e:
         print(f"⚠️ Error saving tasks: {e}")
+        sys.exit()
 
 def load_tasks(filename="todo_list.json"):
-    """Load tasks from a file, return empty dict if file doesn't exist"""
+ 
     if os.path.exists(filename):
         try:
             with open(filename, 'r') as f:
                 return json.load(f)
+            
         except (json.JSONDecodeError, FileNotFoundError) as e:
-            print(f"⚠️ Error loading tasks: {e}")
+
+            print(f"Error loading tasks: {e}")
             return {}
+        
     return {}
 
 def main():
@@ -107,7 +116,6 @@ def add_to_list(to_do, order):
             case _:
 
                 print("Choose one of the options!")
-                continue
 
            
     display_list(to_do, order)
