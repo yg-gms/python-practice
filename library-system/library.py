@@ -24,7 +24,7 @@ def add_members(library, member_id, name):
 
     if member_id in library['names']:
         print("Member already exists!")
-        return
+        return False
     
     library["names"][member_id] = {
 
@@ -33,6 +33,7 @@ def add_members(library, member_id, name):
 
     }
     print(f"New member: {name}")
+    return True
 
 def borrow_book(library, member_id, isbn):
 
@@ -61,11 +62,38 @@ def borrow_book(library, member_id, isbn):
     print(f"{book['title']} borrowed succesfully!")
     return True
 
+def return_books(library, member_id, isbn):
+     
+    if member_id not in library["names"]:
+          print("This member doesn't exist!")
+          return False
+    
+    member = library["names"][member]
+
+    if isbn not in library["books"]:
+        print("This book doesn't exist!")
+        return False
+    
+    book = library['books'][isbn]
+
+    if isbn not in member["borrowed"]:
+        print("You have not borrowed this book!")
+        return False
+    
+    else:
+        book["available"] = True
+        member["borrowed"].pop(isbn)
+        print(f"{book['title']} returned succesfully!")
+        return True
+
+     
+
+
 def display_books(library):
 
     if not library["books"]:
         print("No books to display :(")
-        return
+        return False
     
     print("-" * 40)
     
@@ -76,17 +104,21 @@ def display_books(library):
         print(f"   Status: {status}")
         print("-" * 40)
 
+    return True
+
 def display_members(library):
 
     if not library["names"]:
         print('No members of library :(')
-        return
+        return False
     
     for member_id, member in library["names"].items():
         print(f"{member['name'].upper()}")
         print(f"  ID: {member_id}")
         print(f"  Books borrowed: {len(member['borrowed'])}")
         print("-" * 40)
+    
+    return True
 
 
 
@@ -105,6 +137,7 @@ def main():
             print("3. Add Books")
             print("4. Add Members")
             print("5. Borrow Book")
+            print("6. Return Book")
 
             while True:
 
@@ -128,6 +161,10 @@ def main():
 
                 elif choice == '5':
                         borrow_book(my_library, input("Member ID "), input("ISBN: "))
+                        break
+                
+                elif choice == '6':
+                        return_books(my_library, input("Member ID "), input("ISBN: "))
                         break
 
                 else:
